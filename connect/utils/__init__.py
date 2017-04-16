@@ -92,7 +92,7 @@ def nearest(clusters, centers):
     return [loc.to_dict() for loc in nearest_locations]
 
 
-def calculate_center(clusters):
+def calculate_centers(clusters):
     """
     Given a list of clusters, and weights for each location, find the weighted centroid of each cluster.
 

@@ -1,3 +1,18 @@
+gevent==1.2.1
+greenlet==0.4.4
+
+# Flask service framework
+# License: BSD
+# Upstream url: http://github.com/mitsuhiko/flask/
+Flask==0.10.1
+
+flask-restful==0.3.3
+
+# Scripting support for Flask
+# License: BSD
+# Upstream url: http://github.com/techniq/flask-script
+Flask-Script==2.0.5
+
 # python haversine implementation, only needed for testing
 haversine==0.1
 
