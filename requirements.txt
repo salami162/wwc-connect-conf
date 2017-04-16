@@ -1,0 +1,7 @@
+# python haversine implementation, only needed for testing
+haversine==0.1
+
+# Testing library
+# License: MIT
+# Upstream url: http://doc.pytest.org/en/latest/index.html
+pytest>=2.0.0
