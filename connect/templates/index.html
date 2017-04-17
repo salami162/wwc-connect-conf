@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>GPS for Fun! How to Cluster Location Data to Find Popular Destinations</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+  </head>
+
+  <body>
+      <h1>Hello, {{ user.nickname }}!</h1>
+      <div id="map"></div>
+      
+    <script src="http://localhost:5000/static/index.js"></script>
+
+  </body>
+</html>
