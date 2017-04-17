@@ -6,6 +6,9 @@ greenlet==0.4.4
 # Upstream url: http://github.com/mitsuhiko/flask/
 Flask==0.10.1
 
+# A Flask extension adding a decorator for CORS support
+Flask-Cors==3.0.2
+
 flask-restful==0.3.3
 
 # Scripting support for Flask
@@ -20,3 +23,6 @@ haversine==0.1
 # License: MIT
 # Upstream url: http://doc.pytest.org/en/latest/index.html
 pytest>=2.0.0
+
+# Ultra fast JSON encoder and decoder for Python
+ujson==1.35

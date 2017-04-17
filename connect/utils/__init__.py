@@ -1,8 +1,17 @@
+import ujson
+from flask import Response
 from haversine import haversine
 from itertools import izip
 
 # Result of haversine((lat+1, lng), (lat, lng)) for all combinations of lat, lng
 KILOMETERS_PER_DEGREE_LATITUDE = 111.1338401207391
+
+
+def jsonify_fast(*args, **kwargs):
+    return Response(
+        ujson.dumps(dict(*args, **kwargs)),
+        mimetype='application/json'
+    )
 
 
 def find_nearby_pairs(items, radius_km):

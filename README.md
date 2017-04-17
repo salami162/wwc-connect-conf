@@ -1,4 +1,4 @@
-# Women Who Codes - CONNECT Conference Workshop
+# Women Who Code - CONNECT Conference Workshop
 
 ## Setup
 The following steps will help you setup a development environment.
