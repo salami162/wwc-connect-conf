@@ -6,8 +6,6 @@ class Location(object):
 
         self.lat = float(kwargs.get('lat'))
         self.lng = float(kwargs.get('lng'))
-        self.address = kwargs.get('address')
-        self.source = kwargs.get('source')
         self.name = kwargs.get('name')
         self.category = kwargs.get('category')
         self.weight = kwargs.get('weight')
@@ -16,8 +14,6 @@ class Location(object):
         return {
             'lat': self.lat,
             'lng': self.lng,
-            'address': self.address,
-            'source': self.source,
             'name': self.name,
             'category': self.category,
             'weight': self.weight,
