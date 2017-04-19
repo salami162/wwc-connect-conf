@@ -2,7 +2,7 @@ import numpy as np
 from colorutils import Color
 
 
-def visualize_as_geojson(centroids, data, labels):
+def visualize_as_geojson(centroids, data, labels, sample_scale=10):
     geojson = {
         'type': 'FeatureCollection',
         'features': []
@@ -11,7 +11,7 @@ def visualize_as_geojson(centroids, data, labels):
     colors = np.random.randint(255, size=(len(centroids), 3))
     colors = [Color(tuple(i)).hex for i in colors]
 
-    for i in np.random.choice(len(data), len(data) / 10, replace=False):
+    for i in np.random.choice(len(data), len(data) / sample_scale, replace=False):
         geojson['features'].append({
             'type': 'Feature',
             'properties': {'marker-color': colors[labels[i]]},
