@@ -32,3 +32,7 @@ $ pytest -v -s tests/unit/utils/test_utils.py
 ```
 
 
+## Running the server
+```
+python manage.py runserver
+```
