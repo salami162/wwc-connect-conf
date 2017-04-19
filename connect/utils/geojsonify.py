@@ -19,10 +19,13 @@ def visualize_as_geojson(data, labels=None, centroids=None, sample_scale=10):
         if labels:
             marker_color = colors[labels[i]]
         else:
-            marker_color = i
+            marker_color = colors[i]
         geojson['features'].append({
             'type': 'Feature',
-            'properties': {'marker-color': marker_color},
+            'properties': {
+                'marker-color': marker_color,
+                'icon': 'harbor'
+            },
             'geometry': {
                 'type': 'Point',
                 'coordinates': [data[i][1], data[i][0]]

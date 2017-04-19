@@ -21,5 +21,5 @@ class Hello(Resource):
                 ]
                 locations.append(loc)
 
-        geojson = visualize_as_geojson(locations)
+        geojson = visualize_as_geojson(locations, sample_scale=1)
         return jsonify(geojson)
