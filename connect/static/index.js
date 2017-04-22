@@ -10,7 +10,12 @@ var map = new mapboxgl.Map({
 });
 
 function draw_points(data_points) {
-    console.log(JSON.stringify(data_points));
+    // console.log(JSON.stringify(data_points));
+    map.addSource('points', {
+        "type": "geojson",
+        "data": data_points
+    });
+
     map.addLayer({
         "id": "points",
         "type": "circle",
@@ -18,10 +23,7 @@ function draw_points(data_points) {
             "circle-radius": 8,
             "circle-color": "#007cbf"
         },
-        "source": {
-            "type": "geojson",
-            "data": data_points
-         }
+        "source": "points"
     });
 }
 
@@ -42,6 +44,33 @@ map.on('load', function () {
             console.log(data);
         }
     });
+
+    function animateMarker() {
+
+        $.ajax ({
+            url: "http://localhost:5000/v1/hello", // <--- returns valid json if accessed in the browser
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            contentType: "application/json",
+            success: function(data) {
+                map.getSource('points').setData(data);
+                console.log("success");
+
+            },
+            error: function(data) {
+                alert("Somthing is wrong, please check your console!");
+                console.log(data);
+            }});
+    
+        // Request the next frame of the animation.
+        setTimeout(function() {
+            requestAnimationFrame(animateMarker);
+        }, 1500);
+    }
+
+    // Start the animation.
+    setTimeout(function () { animateMarker(); }, 1500);
 });
 
 // map.on('load', function () {
