@@ -21,8 +21,14 @@ $ source venv/bin/activate
 
 ### install python packages
 ```
-$ pip install -r requirements.py
+$ pip install -r requirements.txt
 ```
+
+## Running the server
+```
+python manage.py runserver
+```
+This will launch a server on localhost at port 5000. Hit up the index page at ```http://localhost:5000/```
 
 
 ## Testing
@@ -30,5 +36,3 @@ $ pip install -r requirements.py
 ```
 $ pytest -v -s tests/unit/utils/test_utils.py
 ```
-
-

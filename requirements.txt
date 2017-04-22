@@ -26,3 +26,9 @@ pytest>=2.0.0
 
 # Ultra fast JSON encoder and decoder for Python
 ujson==1.35
+
+# Color selecton tool
+colorutils==0.2.1
+
+# We need numpy
+numpy==1.12.1

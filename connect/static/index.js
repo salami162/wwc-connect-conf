@@ -10,19 +10,28 @@ var map = new mapboxgl.Map({
 });
 
 function draw_points(data) {
-    console.log("draw_points, data=" + data);
+    console.log(data);
+    map.addLayer({
+       "id": "points",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": data
+        }
+    });
 }
 
 map.on('load', function () {
     $.ajax ({
-        url: "http://localhost:5000/v1/detinations", // <--- returns valid json if accessed in the browser
+        url: "http://localhost:5000/v1/hello", // <--- returns valid json if accessed in the browser
         type: "GET",
         dataType: "json",
         cache: false,
         contentType: "application/json",
         success: function(data) {
-            console.log("success");
             draw_points(data);
+            console.log("success");
+
         },
         error: function(data) {
             alert("Somthing is wrong, please check your console!");
