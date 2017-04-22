@@ -28,7 +28,7 @@ def visualize_as_geojson(data, labels=None, centroids=None, sample_scale=10):
             },
             'geometry': {
                 'type': 'Point',
-                'coordinates': [data[i][1], data[i][0]]
+                'coordinates': [float(data[i][1]), float(data[i][0])]
             }
         })
 
@@ -46,7 +46,7 @@ def generate_centeroid_marker(centroids, colors, geojson):
             'properties': {'marker-color': colors[i], 'marker-size': 'large', 'marker-symbol': str(i)},
             'geometry': {
                 'type': 'Point',
-                'coordinates': [centroids[i][1], centroids[i][0]]
+                'coordinates': [float(centroids[i][1]), float(centroids[i][0])]
             }
         })
     return geojson

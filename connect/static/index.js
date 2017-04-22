@@ -11,8 +11,14 @@ var map = new mapboxgl.Map({
 
 function draw_points(data) {
     console.log(data);
-    map.featureLayer().setGeoJSON(data).addTo(mapGeo);
-    mapGeo.scrollWheelZoom.disable();
+    map.addLayer({
+       "id": "points",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": data
+        }
+    });
 }
 
 map.on('load', function () {
