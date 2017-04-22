@@ -9,15 +9,19 @@ var map = new mapboxgl.Map({
     zoom: 12 // starting zoom
 });
 
-function draw_points(data) {
-    console.log(data);
+function draw_points(data_points) {
+    console.log(JSON.stringify(data_points));
     map.addLayer({
-       "id": "points",
-        "type": "symbol",
+        "id": "points",
+        "type": "circle",
+        "paint": {
+            "circle-radius": 8,
+            "circle-color": "#007cbf"
+        },
         "source": {
             "type": "geojson",
-            "data": data
-        }
+            "data": data_points
+         }
     });
 }
 
