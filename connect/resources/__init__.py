@@ -1,7 +1,8 @@
 from connect import api
-from connect.resources.hello import Hello
-# from connect.resources.destinations import Destinations
+from connect.resources.raw import Raw
+from connect.resources.trained import Trained
 
-# Add your resources here
-api.add_resource(Hello, '/v1/hello')
-# api.add_resource(Destinations, '/v1/destinations')
+# resource for raw data set
+api.add_resource(Raw, '/v1/raw')
+# resource for trained data set
+api.add_resource(Trained, '/v1/trained')

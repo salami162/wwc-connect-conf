@@ -1,119 +1,109 @@
 // config mapbox gl access token
-mapboxgl.accessToken = 'pk.eyJ1IjoidGVrbm9sb2ciLCJhIjoiSThJdmhyRSJ9.zq2xC8EwFXLPixOdVza98A';
+mapboxgl.accessToken = "pk.eyJ1IjoidGVrbm9sb2ciLCJhIjoiSThJdmhyRSJ9.zq2xC8EwFXLPixOdVza98A";
 
 
 var map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/streets-v9', //stylesheet location
-    center: [-122.4351, 37.7612], // starting position
+    container: "map", // container id
+    style: "mapbox://styles/mapbox/streets-v9", //stylesheet location
+    center: [-122.4351, 37.7612], // starting position, center of SF
     zoom: 12 // starting zoom
 });
 
-function draw_points(data_points) {
-    // console.log(JSON.stringify(data_points));
-    map.addSource('points', {
+var animateHandler;
+
+function drawPointsLayer(mapSourceId, paintProperties) {
+    map.addSource(mapSourceId, {
         "type": "geojson",
-        "data": data_points
+        "data": {
+            "type": "FeatureCollection",
+            "features": []
+        }
     });
 
     map.addLayer({
-        "id": "points",
+        "id": mapSourceId,
         "type": "circle",
-        "paint": {
-            "circle-radius": 8,
-            "circle-color": "#007cbf"
-        },
-        "source": "points"
+        "paint": paintProperties,
+        "source": mapSourceId
     });
 }
 
-map.on('load', function () {
+function renderPoints(sourceUrl, mapSourceId) {
     $.ajax ({
-        url: "http://localhost:5000/v1/hello", // <--- returns valid json if accessed in the browser
+        url: sourceUrl, // <--- returns valid json if accessed in the browser
         type: "GET",
         dataType: "json",
         cache: false,
         contentType: "application/json",
-        success: function(data) {
-            draw_points(data);
-            console.log("success");
+        success: function(respData) {
+            map.getSource(mapSourceId).setData(respData);
+            console.log(sourceUrl + ": success");
 
         },
-        error: function(data) {
-            alert("Somthing is wrong, please check your console!");
-            console.log(data);
+        error: function(respData) {
+            alert(mapSourceId + ": Somthing is wrong, please check your console!");
+            clearTimeout();
+            console.log(respData);
         }
     });
+}
 
-    function animateMarker() {
+function renderTrainedPoints() {
 
-        $.ajax ({
-            url: "http://localhost:5000/v1/hello", // <--- returns valid json if accessed in the browser
-            type: "GET",
-            dataType: "json",
-            cache: false,
-            contentType: "application/json",
-            success: function(data) {
-                map.getSource('points').setData(data);
-                console.log("success");
+    renderPoints("http://localhost:5000/v1/trained", "trained_points");
 
-            },
-            error: function(data) {
-                alert("Somthing is wrong, please check your console!");
-                console.log(data);
-            }});
-    
-        // Request the next frame of the animation.
-        setTimeout(function() {
-            requestAnimationFrame(animateMarker);
-        }, 1500);
-    }
+    // Request the next frame of the animation.
+    animateHandler = setTimeout(function() {
+        requestAnimationFrame(renderTrainedPoints);
+    }, 1500);
+}
 
-    // Start the animation.
-    setTimeout(function () { animateMarker(); }, 1500);
+// on map load, add "raw_points" and "trained_points" layers.
+map.on("load", function () {
+    drawPointsLayer("raw_points", {
+        "circle-radius": 8,
+        "circle-color": "#007cbf"
+    });
+
+    drawPointsLayer("trained_points", {
+        "circle-radius": 8,
+        "circle-color": "#FF0000"
+    });
+
+    renderPoints("http://localhost:5000/v1/raw", "raw_points");
 });
 
-// map.on('load', function () {
-//     $.getJSON( "http://localhost:5000/v1/hello?jsoncallback=?", function( data ) {
-//         console.log(data);
 
-//         map.addLayer({
-//             "id": "points",
-//             "type": "symbol",
-//             "source": {
-//                 "type": "geojson",
-//                 "data": {
-//                     "type": "FeatureCollection",
-//                     "features": [{
-//                         "type": "Feature",
-//                         "geometry": {
-//                             "type": "Point",
-//                             "coordinates": [-122.477, 37.7312]
-//                         },
-//                         "properties": {
-//                             "title": "request",
-//                             "icon": "monument"
-//                         }
-//                     }, {
-//                         "type": "Feature",
-//                         "geometry": {
-//                             "type": "Point",
-//                             "coordinates": [-122.43507, 37.76121]
-//                         },
-//                         "properties": {
-//                             "title": "Mapbox SF",
-//                             "icon": "harbor"
-//                         }
-//                     }]
-//                 }
-//             },
-//             "layout": {
-//                 "icon-image": "{icon}-15",
-//                 "text-field": "{title}",
-//                 "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-//                 "text-offset": [0, 0.6],
-//                 "text-anchor": "top"
-//             }
-//         });
-//     });
-// });
+// add toggles
+var toggleableLayerIds = ["start"];
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement("a");
+    link.href = "#";
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var currentState = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (currentState === "start") {
+            this.className = "active";
+            this.textContent = "stop";
+            // Start the animation.
+            animateHandler = setTimeout(function () { renderTrainedPoints(); }, 1500);
+        } else {
+            this.className = "";
+            this.textContent = "start";
+            // Stop the animation.
+            clearTimeout(animateHandler);
+        }
+    };
+
+    var layers = document.getElementById("menu");
+    layers.appendChild(link);
+}
+
+
