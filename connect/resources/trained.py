@@ -14,7 +14,7 @@ class Trained(Resource):
         """
         locations = []
 
-        # with open('./data/wwc_conf_dataset_tiny.csv') as f:
+        # with open('./data/trained_output.csv') as f:
         #     csv_reader = csv.DictReader(f)
         #     for row in csv_reader:
         #         loc = [
