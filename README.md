@@ -30,6 +30,11 @@ python manage.py runserver
 ```
 This will launch a server on localhost at port 5000. Hit up the index page at ```http://localhost:5000/```
 
+## Running KMeans
+```
+python manage.py kmeans -c 4 -src './data/wwc_conf_dataset_tiny.csv' -dest './data/trained_output.csv'
+```
+Given a csv file of locations, generates clusters and outputs them into a another csv file. The following command will output 4 clusters, with the lat/lng of the center in `./data/trained_output.csv`
 
 ## Testing
 ### Run unit tests
