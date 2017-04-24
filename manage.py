@@ -1,7 +1,6 @@
 import gevent.monkey
 gevent.monkey.patch_all()
 
-
 from flask.ext.script import Manager
 
 from connect import app
