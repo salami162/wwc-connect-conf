@@ -30,17 +30,28 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-6. ### Running the server
+6. ### Find various options to run
+```
+$ python manage.py --help
+```
+
+7. ### Running the server
 ```
 python manage.py runserver
 ```
 This will launch a server on localhost at port 5000. Hit up the index page at ```http://localhost:5000/```
 
-7. ### Running KMeans
+8. ### Running KMeans
 ```
 python manage.py kmeans -c 4 -src './data/wwc_conf_dataset_tiny.csv' -dest './data/trained_output.csv'
 ```
 Given a csv file of locations, generates clusters and outputs them into another csv file. The following command will output 4 clusters, with the lat/lng of the centers in `./data/trained_output.csv`
+
+## Recommended Reading
+Here's some reading you can do to help familiarize yourself with [Clustering](https://en.wikipedia.org/wiki/Cluster_analysis), [k-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) and [Hierarchical clustering](https://en.wikipedia.org/wiki/Hierarchical_clustering).
+
+### Documentation
+[sklearn clustering](http://scikit-learn.org/stable/modules/clustering.html) links to docs for the python package that implements various clustering algorithms.
 
 ## Testing
 ### Run unit tests
