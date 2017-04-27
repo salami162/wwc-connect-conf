@@ -4,7 +4,7 @@ from haversine import haversine
 from itertools import izip
 import csv
 from connect.models.location import Location
-
+import numpy as np
 
 # Result of haversine((lat+1, lng), (lat, lng)) for all combinations of lat, lng
 KILOMETERS_PER_DEGREE_LATITUDE = 111.1338401207391
@@ -115,9 +115,9 @@ def nearest(clusters, centers):
     return [loc.to_dict() for loc in nearest_locations]
 
 
-def calculate_centers(clusters):
+def calculate_centroids(clusters):
     """
-    Given a list of clusters, and weights for each location, find the weighted centroid of each cluster.
+    Given a list of clusters, find the centroid of each cluster.
 
     :param iter[list[app.models.base_location.BaseLocation]] clusters:
     :param list[app.models.base_location.BaseLocation] base_locations:
@@ -127,11 +127,12 @@ def calculate_centers(clusters):
 
     center_list = []
     for cluster in clusters:
-        lats, lngs, weights = zip(*[(l.lat, l.lng, l.weight) for l in cluster])
-        total_weight = sum(weights) or 1
+        lats, lngs, weights = zip(*[(l.lat, l.lng, 1) for l in cluster])
+        total_weight = sum(weights)
         center_list.append((
             np.dot(lats, weights) / total_weight,
             np.dot(lngs, weights) / total_weight,
         ))
 
     return center_list
+
