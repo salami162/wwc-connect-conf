@@ -27,4 +27,5 @@ class KMeansCommand(Command):
             print "please enter a number for cluster size"
         locations = np.genfromtxt(file_src, delimiter=',', skip_header=1)
         centers = KMeans(n_clusters=cluster_size, random_state=0).fit(locations)
-        np.savetxt(file_dest, centers.cluster_centers_, delimiter=",", header='dropoff_lat,dropoff_lng', fmt="%5f")
+        np.savetxt(file_dest, centers.cluster_centers_, delimiter=",", header='dropoff_lat,dropoff_lng',
+                   fmt="%5f", comments='')

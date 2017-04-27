@@ -35,5 +35,6 @@ class HierarchyCommand(Command):
 
         with open(file_dest, 'w') as f:
             writer = csv.writer(f, delimiter=',')
+            writer.writerow(['dropoff_lat', 'dropoff_lng'])
             for loc in centers:
                 writer.writerow(loc)

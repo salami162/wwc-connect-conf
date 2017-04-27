@@ -14,18 +14,14 @@ class Trained(Resource):
         """
         locations = []
 
-        # with open('./data/trained_output.csv') as f:
-        #     csv_reader = csv.DictReader(f)
-        #     for row in csv_reader:
-        #         loc = [
-        #             row['dropoff_lat'],
-        #             row['dropoff_lng']
-        #         ]
-        #         locations.append(loc)
-        for i in xrange(15):
-            generated_lat = uniform(37.7409, 37.80007)
-            generated_lng = uniform(-122.481937, -122.388725)
-            locations.append([generated_lat, generated_lng])
+        with open('./data/trained_output.csv') as f:
+            csv_reader = csv.DictReader(f)
+            for row in csv_reader:
+                loc = [
+                    row['dropoff_lat'],
+                    row['dropoff_lng']
+                ]
+                locations.append(loc)
 
         geojson = visualize_as_geojson(locations, sample_scale=1)
         return jsonify(geojson)
