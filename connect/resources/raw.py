@@ -13,7 +13,7 @@ class Raw(Resource):
         """
         locations = []
 
-        with open('./data/wwc_conf_dataset_tiny.csv') as f:
+        with open('./data/wwc_conf_dataset_full.csv') as f:
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 loc = [
