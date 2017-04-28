@@ -1,6 +1,7 @@
 import csv
 from flask.ext.restful import Resource
 
+from connect import settings
 from connect.utils import jsonify_fast as jsonify
 from connect.utils.geojsonify import visualize_as_geojson
 
@@ -13,12 +14,12 @@ class Trained(Resource):
         """
         locations = []
 
-        with open('./data/trained_output.csv') as f:
+        with open('./data/{}.csv'.format(settings.DATA_SET_OUTPUT)) as f:
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 loc = [
-                    row['dropoff_lat'],
-                    row['dropoff_lng']
+                    row['lat'],
+                    row['lng']
                 ]
                 locations.append(loc)
 

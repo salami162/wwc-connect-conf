@@ -1,10 +1,11 @@
 import numpy as np
+from connect import settings
 from flask.ext.script import Command, Option
 from sklearn.cluster import KMeans
 
 CLUSTER_SIZE = 10
-DEST_FILENAME = './data/trained_output.csv'
-SRC_FILENAME = './data/wwc_conf_dataset_tiny.csv'
+DEST_FILENAME = './data/{}.csv'.format(settings.DATA_SET_OUTPUT)
+SRC_FILENAME = './data/{}.csv'.format(settings.DATA_SET_FULL)
 
 
 class KMeansCommand(Command):
@@ -27,5 +28,5 @@ class KMeansCommand(Command):
             print "please enter a number for cluster size"
         locations = np.genfromtxt(file_src, delimiter=',', skip_header=1)
         centers = KMeans(n_clusters=cluster_size, random_state=0).fit(locations)
-        np.savetxt(file_dest, centers.cluster_centers_, delimiter=",", header='dropoff_lat,dropoff_lng',
+        np.savetxt(file_dest, centers.cluster_centers_, delimiter=",", header='lat,lng',
                    fmt="%5f", comments='')

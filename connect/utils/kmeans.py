@@ -10,7 +10,7 @@ def read_data(dataset='wwc_conf_dataset.csv'):
 def convert_data_for_sklearn(df):
     data = []
     for i, row in df.iterrows():
-        data.append([row['dropoff_lat'], row['dropoff_lng']])
+        data.append([row['lat'], row['lng']])
     return data
 
 

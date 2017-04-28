@@ -1,12 +1,13 @@
 import csv
 from flask.ext.script import Command, Option
 
+from connect import settings
 from connect.utils.clustering import build_centers
 
 CLUSTER_SIZE = 10
 MAX_DISTANCE_WITHIN_CLUSTER_IN_METERS = 100
-DEST_FILENAME = './data/trained_output.csv'
-SRC_FILENAME = './data/wwc_conf_dataset_tiny.csv'
+DEST_FILENAME = './data/{}.csv'.format(settings.DATA_SET_OUTPUT)
+SRC_FILENAME = './data/{}.csv'.format(settings.DATA_SET_FULL)
 
 
 class HierarchyCommand(Command):
@@ -35,6 +36,6 @@ class HierarchyCommand(Command):
 
         with open(file_dest, 'w') as f:
             writer = csv.writer(f, delimiter=',')
-            writer.writerow(['dropoff_lat', 'dropoff_lng'])
+            writer.writerow(['lat', 'lng'])
             for loc in centers:
                 writer.writerow(loc)
