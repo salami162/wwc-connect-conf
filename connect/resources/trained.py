@@ -1,5 +1,4 @@
 import csv
-from random import uniform
 from flask.ext.restful import Resource
 
 from connect.utils import jsonify_fast as jsonify
